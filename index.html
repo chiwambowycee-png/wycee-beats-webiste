@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Wycee Beats — official free Afrobeat downloads and music playlist.">
+  <title>Wycee Beats | Free Afrobeat Downloads</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <div class="brand-mark">WB</div>
+      <div>
+        <strong>Wycee Beats</strong>
+        <span>Free Afrobeat Downloads</span>
+      </div>
+    </div>
+    <nav>
+      <a href="#music">Music</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">OFFICIAL MUSIC WEBSITE</p>
+        <h1>Wycee Beats</h1>
+        <p class="tagline">Listen. Download. Enjoy.</p>
+        <p class="intro">Discover my latest beats and Afrobeat sounds. Stream the tracks online or download them for free.</p>
+        <a class="primary-btn" href="#music">Explore Music ↓</a>
+      </div>
+      <div class="hero-art">
+        <img src="assets/playlist-poster.png" alt="Wycee Beats Extended Playlist">
+      </div>
+    </section>
+
+    <section id="music" class="music-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">MY MUSIC</p>
+          <h2>Extended Playlist</h2>
+        </div>
+        <input id="search" type="search" placeholder="Search a song..." aria-label="Search songs">
+      </div>
+
+      <div id="song-list" class="song-list"></div>
+      <p id="empty" class="empty" hidden>No songs found.</p>
+    </section>
+
+    <section id="about" class="about">
+      <div>
+        <p class="eyebrow">ABOUT</p>
+        <h2>Welcome to Wycee Beats</h2>
+      </div>
+      <p>This is the official home of Wycee Beats — a place to share beats, songs and Afrobeat sounds. Check back for new releases and downloads.</p>
+    </section>
+
+    <section id="contact" class="contact">
+      <div>
+        <p class="eyebrow">CONTACT</p>
+        <h2>Work with Wycee</h2>
+        <p>For beats, collaborations or enquiries, get in touch.</p>
+      </div>
+      <a class="phone" href="tel:+265993731317">+265 993 731 317</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Wycee Beats. All rights reserved.</p>
+    <p>Quick sound. Real vibes.</p>
+  </footer>
+
+  <script>
+    const songs = [
+  { title: 'This is Love', artist: 'Wycee beats & Jay T', file: "songs/this-is-love.mp3", cover: "assets/playlist-poster.png" },
+  { title: 'Edify Me', artist: 'Wycee & Snooky beats', file: "songs/edify-me.mp3", cover: "assets/playlist-poster.png" },
+  { title: 'Handede', artist: 'Wycee beats', file: "songs/handede.mp3", cover: "assets/playlist-poster.png" },
+  { title: 'Black handsome', artist: 'Wycee beats', file: "songs/black-handsome.mp3", cover: "assets/playlist-poster.png" },
+  { title: 'Bad Slime', artist: 'Wycee beats', file: "songs/bad-slime.mp3", cover: "assets/playlist-poster.png" },
+  { title: 'My Heart Is Not A Ball', artist: 'Wycee Beats', file: "songs/my-heart-is-not-a-ball.mp3", cover: "assets/playlist-poster.png" },
+  { title: 'Step Slow', artist: 'Wycee beats', file: "songs/step-slow.mp3", cover: "assets/playlist-poster.png" },
+  { title: 'Slow Mo', artist: 'Wycee beats', file: "songs/slow-mo.mp3", cover: "assets/playlist-poster.png" },
+  { title: 'Timapanga Zimenezi', artist: 'Wycee beats', file: "songs/timapanga-zimenezi.mp3", cover: "assets/playlist-poster.png" }
+    ];
+
+    const list = document.getElementById("song-list");
+    const search = document.getElementById("search");
+    const empty = document.getElementById("empty");
+    let currentAudio = null;
+    let currentButton = null;
+
+    async function getCount(type, song) {
+      try {
+        const response = await fetch(`/.netlify/functions/${type}?song=${encodeURIComponent(song)}`);
+        if (!response.ok) return 0;
+        const data = await response.json();
+        return Number(data.count) || 0;
+      } catch (_) { return 0; }
+    }
+
+    async function registerCount(type, song) {
+      try {
+        const response = await fetch(`/.netlify/functions/${type}?song=${encodeURIComponent(song)}`, { method: "POST" });
+        if (!response.ok) return null;
+        const data = await response.json();
+        return Number(data.count) || 0;
+      } catch (_) { return null; }
+    }
+
+    function render(filter = "") {
+      list.innerHTML = "";
+      const q = filter.toLowerCase().trim();
+      const matches = songs.filter(s =>
+        s.title.toLowerCase().includes(q) || s.artist.toLowerCase().includes(q)
+      );
+
+      empty.hidden = matches.length !== 0;
+
+      matches.forEach((song, index) => {
+        const card = document.createElement("article");
+        card.className = "song-card";
+        card.innerHTML = `
+          <div class="number">${String(index + 1).padStart(2, "0")}</div>
+          <img src="${song.cover}" alt="${song.title} cover">
+          <div class="song-info">
+            <h3>${song.title}</h3>
+            <p>${song.artist}</p>
+          </div>
+          <div class="actions">
+            <div class="play-area">
+              <button class="play-btn" type="button">▶</button>
+              <span class="play-count">Loading plays...</span>
+            </div>
+            <button class="download-btn" type="button">Download <span class="download-count">Loading...</span></button>
+          </div>
+        `;
+
+        const play = card.querySelector(".play-btn");
+        const playCountLabel = card.querySelector(".play-count");
+        const songKey = song.file.replace("songs/", "").replace(".mp3", "");
+        let playRegisteredForThisAudio = false;
+        play.addEventListener("click", () => {
+          if (currentAudio && currentButton === play) {
+            if (currentAudio.paused) {
+              currentAudio.play();
+              play.textContent = "Ⅱ";
+            } else {
+              currentAudio.pause();
+              play.textContent = "▶";
+            }
+            return;
+          }
+
+          if (currentAudio) currentAudio.pause();
+          if (currentButton) currentButton.textContent = "▶";
+
+          currentAudio = new Audio(song.file);
+          currentButton = play;
+          currentAudio.play().then(async () => {
+            play.textContent = "Ⅱ";
+            if (!playRegisteredForThisAudio) {
+              playRegisteredForThisAudio = true;
+              const count = await registerCount("plays", songKey);
+              if (count !== null) playCountLabel.textContent = `${count} ${count === 1 ? "play" : "plays"}`;
+            }
+          }).catch(() => {
+            alert("The song could not be played. Please try again.");
+          });
+          currentAudio.addEventListener("ended", () => play.textContent = "▶");
+        });
+
+        const download = card.querySelector(".download-btn");
+        const countLabel = card.querySelector(".download-count");
+
+        getCount("download", songKey).then(count => {
+          countLabel.textContent = `${count} ${count === 1 ? "download" : "downloads"}`;
+        });
+        getCount("plays", songKey).then(count => {
+          playCountLabel.textContent = `${count} ${count === 1 ? "play" : "plays"}`;
+        });
+
+        download.addEventListener("click", async () => {
+          download.disabled = true;
+          const count = await registerCount("download", songKey);
+          if (count !== null) {
+            countLabel.textContent = `${count} ${count === 1 ? "download" : "downloads"}`;
+          }
+          const link = document.createElement("a");
+          link.href = song.file;
+          link.download = "";
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          download.disabled = false;
+        });
+
+        list.appendChild(card);
+      });
+    }
+
+    search.addEventListener("input", e => render(e.target.value));
+    document.getElementById("year").textContent = new Date().getFullYear();
+    render();
+  </script>
+</body>
+</html>
