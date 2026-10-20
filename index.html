@@ -204,6 +204,74 @@
     search.addEventListener("input", e => render(e.target.value));
     document.getElementById("year").textContent = new Date().getFullYear();
     render();
-  </script>
+  /* ===== TOP BEATS ===== */
+async function loadTopBeats() {
+  const results = await Promise.all(
+    songs.map(async (song) => {
+      const [plays, downloads] = await Promise.all([
+        getCount("plays", song.title),
+        getCount("download", song.title)
+      ]);
+
+      return {
+        song,
+        plays: Number(plays) || 0,
+        downloads: Number(downloads) || 0
+      };
+    })
+  );
+
+  results.sort((a, b) =>
+    (b.plays + b.downloads) - (a.plays + a.downloads)
+  );
+
+  const top = results.slice(0, 5);
+
+  const section = document.createElement("section");
+  section.id = "top-beats";
+  section.innerHTML = `
+    <h2>🔥 Top Beats</h2>
+    <p class="top-subtitle">The most played and downloaded beats</p>
+    <div class="top-beats-list">
+      ${top.map((item, index) => `
+        <div class="top-beat">
+          <div class="top-number">${index + 1}</div>
+          <img src="${item.song.cover}" alt="${item.song.title}">
+          <div class="top-info">
+            <h3>${item.song.title}</h3>
+            <p>${item.song.artist}</p>
+            <span>▶ ${item.plays} plays</span>
+            <span>⬇ ${item.downloads} downloads</span>
+          </div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+
+  const musicSection = document.getElementById("music");
+  if (musicSection) {
+    musicSection.parentNode.insertBefore(section, musicSection);
+  } else {
+    document.body.insertBefore(section, document.body.firstChild);
+  }
+}
+
+/* ===== EMAIL ===== */
+const contactEmail = document.createElement("div");
+contactEmail.innerHTML = `
+  <p>📧 Email:
+    <a href="mailto:chiwambowycee@gmail.com">
+      chiwambowycee@gmail.com
+    </a>
+  </p>
+`;
+
+const contactSection = document.getElementById("contact");
+if (contactSection) {
+  contactSection.appendChild(contactEmail);
+}
+
+loadTopBeats();
+</script>
 </body>
 </html>
