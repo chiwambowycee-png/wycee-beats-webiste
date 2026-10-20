@@ -168,3 +168,28 @@ footer {
 @media (max-width: 800px) {
   .play-count { font-size:9px; }
 }
+@media (max-width: 800px) {
+  .hero {
+    Grid-template-columns: 1fr;
+    Width: 100%;
+    Min-height: auto;
+    Padding: 50px 20px;
+  }
+
+  .hero > * {
+    Width: 100%;
+    Max-width: 100%;
+  }
+
+  .hero img {
+    Width: 100%;
+    Height: auto;
+    Display: block;
+  }
+
+  Body {
+    Margin: 0;
+    Overflow-x: hidden;
+  }
+}
+
