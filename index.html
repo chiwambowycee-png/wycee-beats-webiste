@@ -273,6 +273,7 @@ if (contactSection) {
 
 loadTopBeats();
     
+    
 /* ===== PREMIUM BEATS ===== */
 
 const premiumBeats = [
@@ -290,18 +291,18 @@ premiumSection.id = "premium-beats";
 premiumSection.innerHTML = `
   <h2>🎹 Premium Beats — MK 15,000 each</h2>
   <p>High-quality beats available for purchase.</p>
+<div class=”premium-genres”>
+  <button onclick=”filterPremiumGenre(‘Amapiano’)”>🎵 Amapiano</button>
+  <button onclick=”filterPremiumGenre(‘Afrobeat’)”>🎤 Afrobeat</button>
+  <button onclick=”filterPremiumGenre(‘R&B’)”>❤️ R&B</button>
+  <button onclick=”filterPremiumGenre(‘Gospel’)”>✝️ Gospel</button>
+  <button onclick=”filterPremiumGenre(‘Hip-Hop’)”>🔥 Hip-Hop</button>
+  <button onclick=”filterPremiumGenre(‘Afro-Pop’)”>🎸 Afro-Pop</button>
+  <button onclick=”filterPremiumGenre(‘Dancehall’)”>🌴 Dancehall</button>
+  <button onclick=”filterPremiumGenre(‘Slow / Emotional’)”>🌙 Slow / Emotional</button>
+  <button onclick=”filterPremiumGenre(‘Other Genres’)”>🎶 Other Genres</button>
+</div>
 
-  <div class="premium-genres">
-    <span>🎵 Amapiano</span>
-    <span>🎤 Afrobeat</span>
-    <span>❤️ R&B</span>
-    <span>✝️ Gospel</span>
-    <span>🔥 Hip-Hop</span>
-    <span>🎸 Afro-Pop</span>
-    <span>🌴 Dancehall</span>
-    <span>🌙 Slow / Emotional</span>
-    <span>🎶 Other Genres</span>
-  </div>
 
   <div class="premium-beats-list">
     ${premiumBeats.map((beat) => `
@@ -397,6 +398,54 @@ function submitBeatOrder(event, beatTitle) {
   );
 
   closeBuyForm();
+}
+
+/* ===== PREMIUM GENRE FILTER ===== */
+
+Function filterPremiumGenre(genre) {
+  Const list = document.querySelector(“.premium-beats-list”);
+
+  Const filteredBeats = premiumBeats.filter(
+    Beat => beat.genre === genre
+  );
+
+  If (filteredBeats.length === 0) {
+    List.innerHTML = `
+      <div class=”no-premium-beats”>
+        <h3>🎵 No ${genre} beats available yet</h3>
+        <p>New premium beats are coming soon.</p>
+      </div>
+    `;
+    Return;
+  }
+
+  List.innerHTML = filteredBeats.map((beat) => `
+    <div class=”premium-beat-card”>
+
+      <img src=”${beat.cover}” alt=”${beat.title}”>
+
+      <div class=”premium-beat-info”>
+
+        <h3>${beat.title}</h3>
+
+        <p>🎵 Genre: ${beat.genre}</p>
+
+        <h4>💰 ${beat.price}</h4>
+
+        <button class=”preview-btn”>
+          ▶️ Preview
+        </button>
+
+        <button
+          Class=”buy-btn”
+          Onclick=”openBuyForm(‘${beat.title}’)”>
+          💰 Buy Beat
+        </button>
+
+      </div>
+
+    </div>
+  `).join(“”);
 }
 
 </script>
