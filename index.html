@@ -272,6 +272,133 @@ if (contactSection) {
 }
 
 loadTopBeats();
+    
+/* ===== PREMIUM BEATS ===== */
+
+const premiumBeats = [
+  {
+    title: "Seized — Dancehall Beat",
+    genre: "Dancehall",
+    price: "MK 15,000",
+    cover: "assets/premium/seized-dancehall-beat.jpg"
+  }
+];
+
+const premiumSection = document.createElement("section");
+premiumSection.id = "premium-beats";
+
+premiumSection.innerHTML = `
+  <h2>🎹 Premium Beats — MK 15,000 each</h2>
+  <p>High-quality beats available for purchase.</p>
+
+  <div class="premium-genres">
+    <span>🎵 Amapiano</span>
+    <span>🎤 Afrobeat</span>
+    <span>❤️ R&B</span>
+    <span>✝️ Gospel</span>
+    <span>🔥 Hip-Hop</span>
+    <span>🎸 Afro-Pop</span>
+    <span>🌴 Dancehall</span>
+    <span>🌙 Slow / Emotional</span>
+    <span>🎶 Other Genres</span>
+  </div>
+
+  <div class="premium-beats-list">
+    ${premiumBeats.map((beat) => `
+      <div class="premium-beat-card">
+        <img src="${beat.cover}" alt="${beat.title}">
+
+        <div class="premium-beat-info">
+          <h3>${beat.title}</h3>
+          <p>🎵 Genre: ${beat.genre}</p>
+          <h4>💰 ${beat.price}</h4>
+
+          <button class="preview-btn">
+            ▶️ Preview
+          </button>
+
+          <button class="buy-btn" onclick="openBuyForm('${beat.title}')">
+            💰 Buy Beat
+          </button>
+        </div>
+      </div>
+    `).join("")}
+  </div>
+`;
+
+const musicSection = document.getElementById("music");
+
+if (musicSection) {
+  musicSection.parentNode.insertBefore(premiumSection, musicSection);
+} else {
+  document.body.appendChild(premiumSection);
+}
+
+/* ===== BUY BEAT FORM ===== */
+
+function openBuyForm(beatTitle) {
+  const formSection = document.createElement("div");
+
+  formSection.id = "buy-form-overlay";
+
+  formSection.innerHTML = `
+    <div class="buy-form">
+      <button class="close-buy-form" onclick="closeBuyForm()">✕</button>
+
+      <h2>🛒 Buy Beat</h2>
+
+      <p><strong>Beat:</strong> ${beatTitle}</p>
+      <p><strong>Price:</strong> MK 15,000</p>
+
+      <form onsubmit="submitBeatOrder(event, '${beatTitle}')">
+
+        <label>Name</label>
+        <input type="text" required>
+
+        <label>Phone Number</label>
+        <input type="tel" required>
+
+        <label>Payment Method</label>
+        <select required>
+          <option value="">Select payment method</option>
+          <option>Airtel Money</option>
+          <option>TNM Mpamba</option>
+          <option>Bank</option>
+        </select>
+
+        <label>Email (optional)</label>
+        <input type="email">
+
+        <button type="submit">
+          Submit Order
+        </button>
+
+      </form>
+    </div>
+  `;
+
+  document.body.appendChild(formSection);
+}
+
+function closeBuyForm() {
+  const form = document.getElementById("buy-form-overlay");
+  if (form) {
+    form.remove();
+  }
+}
+
+function submitBeatOrder(event, beatTitle) {
+  event.preventDefault();
+
+  alert(
+    "Order received for: " +
+    beatTitle +
+    "\\n\\nWe will contact you with payment instructions."
+  );
+
+  closeBuyForm();
+}
+
 </script>
 </body>
 </html>
