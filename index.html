@@ -281,7 +281,8 @@ const premiumBeats = [
     title: "Seized — Dancehall Beat",
     genre: "Dancehall",
     price: "MK 15,000",
-    cover: "assets/premium/seized-dancehall-beat.jpg"
+    cover: "assets/premium/seized-dancehall-beat.jpg.jpeg"
+    preview: "assets/premium/seized-dancehall-preview.mp3"
   }
 ];
 
@@ -314,7 +315,10 @@ premiumSection.innerHTML = `
           <p>🎵 Genre: ${beat.genre}</p>
           <h4>💰 ${beat.price}</h4>
 
-          <button class="preview-btn">
+          <button 
+            class="preview-btn">
+            onclick="playPremiumPreview('$
+          {beat.preview}')">
             ▶️ Preview
           </button>
 
@@ -432,7 +436,10 @@ Function filterPremiumGenre(genre) {
 
         <h4>💰 ${beat.price}</h4>
 
-        <button class=”preview-btn”>
+        <button 
+          class=”preview-btn”
+          onclick="playPremiumPreview('$
+        {beat.preview}')">
           ▶️ Preview
         </button>
 
@@ -448,6 +455,16 @@ Function filterPremiumGenre(genre) {
   `).join(“”);
 }
 
-</script>
+let PremiumAudio = null;
+function playPremiumPreview(previewFile)
+{
+   if (premiumAudio) {
+     PremiumAudio.pause();
+     PremiumAudio.currentTime = 0;
+   }
+  
+  premiumAudio = new Audio(previewFile);
+  premiumAudio.play();
+}</script>
 </body>
 </html>
