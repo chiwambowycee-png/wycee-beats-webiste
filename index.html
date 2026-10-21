@@ -312,10 +312,7 @@ premiumSection.innerHTML = `
 const musicSectionPremium = document.getElementById("music");
 
 if (musicSectionPremium) {
-  musicSectionPremium.insertAdjacentElement(
-    "afterend",
-    premiumSection
-  );
+  musicSectionPremium.parentNode.appendChild(premiumSection);
 } else {
   document.body.appendChild(premiumSection);
 }
@@ -419,10 +416,10 @@ function openBuyForm(beatTitle) {
       <form onsubmit="submitBeatOrder(event, '${beatTitle}')">
 
         <label>Name</label>
-        <input type="text" required>
+        <input type="text" placeholder="Your name" required>
 
         <label>Phone Number</label>
-        <input type="tel" required>
+        <input type="tel" placeholder="Your phone number" required>
 
         <label>Payment Method</label>
         <select required>
@@ -432,8 +429,8 @@ function openBuyForm(beatTitle) {
           <option>Bank</option>
         </select>
 
-        <label>Email</label>
-        <input type="email">
+        <label>Email (optional)</label>
+        <input type="email" placeholder="Your email">
 
         <label>Change / Customisation Request</label>
         <textarea
