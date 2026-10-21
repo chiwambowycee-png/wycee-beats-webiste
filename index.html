@@ -312,10 +312,12 @@ premiumSection.innerHTML = `
 const musicSectionPremium = document.getElementById("music");
 
 if (musicSectionPremium) {
-  musicSectionPremium.parentNode.insertBefore(
-    premiumSection,
-    musicSectionPremium
+  musicSectionPremium.insertAdjacentElement(
+    "afterend",
+    premiumSection
   );
+} else {
+  document.body.appendChild(premiumSection);
 }
 
 function displayPremiumBeats(beats) {
