@@ -204,13 +204,21 @@
     search.addEventListener("input", e => render(e.target.value));
     document.getElementById("year").textContent = new Date().getFullYear();
     render();
-  /* ===== TOP BEATS ===== */
+  
+/* ===== TOP BEATS ===== */
+
 async function loadTopBeats() {
   const results = await Promise.all(
     songs.map(async (song) => {
+
+      // Match the identifiers used by both backend functions
+      const songKey = song.file
+        .replace("songs/", "")
+        .replace(".mp3", "");
+
       const [plays, downloads] = await Promise.all([
-        getCount("plays", song.title),
-        getCount("download", song.title)
+        getCount("plays", songKey),
+        getCount("download", songKey)
       ]);
 
       return {
@@ -221,6 +229,7 @@ async function loadTopBeats() {
     })
   );
 
+  // Rank by combined plays and downloads
   results.sort((a, b) =>
     (b.plays + b.downloads) - (a.plays + a.downloads)
   );
@@ -229,17 +238,25 @@ async function loadTopBeats() {
 
   const section = document.createElement("section");
   section.id = "top-beats";
+
   section.innerHTML = `
-    <h2> Top Beats🔥</h2>
-    <p class="top-subtitle">The most played and downloaded beats</p>
+    <h2>🔥 Top Beats</h2>
+    <p class="top-subtitle">
+      The most played and downloaded beats
+    </p>
+
     <div class="top-beats-list">
       ${top.map((item, index) => `
         <div class="top-beat">
           <div class="top-number">${index + 1}</div>
-          <img src="${item.song.cover}" alt="${item.song.title}">
+
+          <img src="${item.song.cover}"
+               alt="${item.song.title}">
+
           <div class="top-info">
             <h3>${item.song.title}</h3>
             <p>${item.song.artist}</p>
+
             <span>▶ ${item.plays} plays</span>
             <span>⬇ ${item.downloads} downloads</span>
           </div>
@@ -248,13 +265,19 @@ async function loadTopBeats() {
     </div>
   `;
 
+  const oldSection = document.getElementById("top-beats");
+  if (oldSection) oldSection.remove();
+
   const musicSection = document.getElementById("music");
+
   if (musicSection) {
-    musicSection.parentNode.insertBefore(section, musicSection);
-  } else {
-    document.body.insertBefore(section, document.body.firstChild);
+    musicSection.parentNode.insertBefore(
+      section,
+      musicSection
+    );
   }
 }
+
 
 /* ===== EMAIL ===== */
 const contactEmail = document.createElement("div");
