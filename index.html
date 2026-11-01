@@ -40,8 +40,8 @@
     <section id="music" class="music-section">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">MY MUSIC</p>
-          <h2>Extended Playlist</h2>
+        <p class="eyebrow">WYCEE FREE BEATS</p>
+<h2>Download Free Beats — Extended Playlist</h2>
         </div>
         <input id="search" type="search" placeholder="Search a song..." aria-label="Search songs">
       </div>
@@ -312,7 +312,7 @@ premiumSection.innerHTML = `
 const musicSectionPremium = document.getElementById("music");
 
 if (musicSectionPremium) {
-  musicSectionPremium.parentNode.appendChild(premiumSection);
+  musicSectionPremium.insertAdjacentElement("afterend", premiumSection);
 } else {
   document.body.appendChild(premiumSection);
 }
