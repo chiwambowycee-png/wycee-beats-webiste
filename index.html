@@ -436,35 +436,56 @@ function openBuyForm(beatTitle) {
       <p><strong>Beat:</strong> ${beatTitle}</p>
       <p><strong>Price:</strong> MK 15,000</p>
 
-      <form onsubmit="submitBeatOrder(event, '${beatTitle}')">
+      <form name="premium-beat-orders"
+      method="POST"
+      data-netlify="true"
+      onsubmit="submitBeatOrder(event, '${beatTitle}')">
 
-        <label>Name</label>
-        <input type="text" placeholder="Your name" required>
+  <input type="hidden" name="form-name" value="premium-beat-orders">
 
-        <label>Phone Number</label>
-        <input type="tel" placeholder="Your phone number" required>
+  <label>Name</label>
+  <input
+    type="text"
+    name="name"
+    placeholder="Your name"
+    required
+  >
 
-        <label>Payment Method</label>
-        <select required>
-          <option value="">Select payment method</option>
-          <option>Airtel Money</option>
-          <option>TNM Mpamba</option>
-          <option>Bank</option>
-        </select>
+  <label>Phone Number</label>
+  <input
+    type="tel"
+    name="phone"
+    placeholder="Your phone number"
+    required
+  >
 
-        <label>Email (optional)</label>
-        <input type="email" placeholder="Your email">
+  <label>Payment Method</label>
+  <select name="payment" required>
+    <option value="">Select payment method</option>
+    <option value="Airtel Money">Airtel Money</option>
+    <option value="TNM Mpamba">TNM Mpamba</option>
+    <option value="Bank">Bank</option>
+  </select>
 
-        <label>Change / Customisation Request</label>
-        <textarea
-          placeholder="Tell me if you need any changes to the beat..."
-          rows="4"></textarea>
+  <label>Email (optional)</label>
+  <input
+    type="email"
+    name="email"
+    placeholder="Your email"
+  >
 
-        <button type="submit">
-          Submit Order
-        </button>
+  <label>Change / Customisation Request (optional)</label>
+  <textarea
+    name="customisation"
+    placeholder="Tell me if you need any changes to the beat..."
+    rows="4"
+  ></textarea>
 
-      </form>
+  <button type="submit">
+    Submit Order
+  </button>
+
+</form>
 
     </div>
   `;
@@ -480,17 +501,62 @@ function closeBuyForm() {
   }
 }
 
-function submitBeatOrder(event, beatTitle) {
+async function submitBeatOrder(event, beatTitle) {
   event.preventDefault();
 
-  alert(
-    "Order received for: " +
-    beatTitle +
-    "\\n\\nWe will contact you with payment instructions."
-  );
+  const form = event.target;
+  const formData = new FormData(form);
 
-  closeBuyForm();
+  formData.set("form-name", "premium-beat-orders");
+  formData.set("beat", beatTitle);
+
+  try {
+    const response = await fetch("/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: new URLSearchParams(formData).toString()
+    });
+
+    if (!response.ok) {
+      throw new Error("Order submission failed");
+    }
+
+    alert(
+      "Thank you! Your order for " +
+      beatTitle +
+      " has been received. We will contact you with payment instructions."
+    );
+
+    closeBuyForm();
+
+  } catch (error) {
+    alert(
+      "Sorry, your order could not be submitted. Please try again."
+    );
+
+    console.error(error);
+  }
 }
 </script>
+
+<!-- Hidden form for Netlify detection -->
+<form name="premium-beat-orders"
+      method="POST"
+      data-netlify="true"
+      hidden>
+
+  <input type="hidden" name="form-name" value="premium-beat-orders">
+
+  <input type="text" name="name">
+  <input type="tel" name="phone">
+  <input type="text" name="beat">
+  <input type="text" name="payment">
+  <input type="email" name="email">
+  <textarea name="customisation"></textarea>
+
+</form>
+
 </body>
 </html>
