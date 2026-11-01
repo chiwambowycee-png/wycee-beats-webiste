@@ -541,12 +541,14 @@ async function submitBeatOrder(event, beatTitle) {
 }
 </script>
 
-<!-- Hidden form for Netlify detection -->
-<form name="premium-beat-orders"
-      method="POST"
-      data-netlify="true"
-      hidden>
 
+<!-- Hidden Netlify form for premium beat orders -->
+<form
+  name="premium-beat-orders"
+  method="POST"
+  data-netlify="true"
+  hidden
+>
   <input type="hidden" name="form-name" value="premium-beat-orders">
 
   <input type="text" name="name">
@@ -555,8 +557,6 @@ async function submitBeatOrder(event, beatTitle) {
   <input type="text" name="payment">
   <input type="email" name="email">
   <textarea name="customisation"></textarea>
-
 </form>
-
 </body>
 </html>
