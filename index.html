@@ -48,6 +48,18 @@
 
       <div id="song-list" class="song-list"></div>
       <p id="empty" class="empty" hidden>No songs found.</p>
+      </section>
+
+    <!-- NEW FREE BEATS -->
+    <section id="new-free-beats" class="music-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">LATEST RELEASES</p>
+          <h2>🎧 New Free Beats</h2>
+        </div>
+      </div>
+
+      <div id="new-song-list" class="song-list"></div>
     </section>
 
     <section id="about" class="about">
@@ -74,7 +86,44 @@
   </footer>
 
   <script>
-    const songs = [
+    const songs = [const newBeats = [
+  {
+    title: "Vocal Lover Afro Free",
+    artist: "Wycee Beats",
+    file: "songs/new-beats/Vocalover-afro-free.mp3",
+    cover: "songs/new-beats/covers/Vocalover-afro-free.png"
+  },
+  {
+    title: "Afrobeat Frost Water Free",
+    artist: "Wycee Beats",
+    file: "songs/new-beats/afrobea-frost-water-free.mp3",
+    cover: "songs/new-beats/covers/afrobea-frost-water-free.png"
+  },
+  {
+    title: "Afrobeats",
+    artist: "Wycee Beats",
+    file: "songs/new-beats/afrobeats.mp3",
+    cover: "songs/new-beats/covers/afrobeats.png"
+  },
+  {
+    title: "Afro Gospel Free",
+    artist: "Wycee Beats",
+    file: "songs/new-beats/afrogospel-free.mp3",
+    cover: "songs/new-beats/covers/afrogospel-free.jpg"
+  },
+  {
+    title: "Dancehall",
+    artist: "Wycee Beats",
+    file: "songs/new-beats/damcehall.mp3",
+    cover: "songs/new-beats/covers/damcehall.png"
+  },
+  {
+    title: "Sugar Baby Free",
+    artist: "Wycee Beats",
+    file: "songs/new-beats/sugar-baby-free.mp3",
+    cover: "songs/new-beats/covers/sugar-baby-free.png"
+  }
+];
   { title: 'This is Love', artist: 'Wycee beats & Jay T', file: "songs/this-is-love.mp3", cover: "assets/this-is-love.jpg.png" },
   { title: 'Edify Me', artist: 'Wycee & Snooky beats', file: "songs/edify-me.mp3", cover: "assets/edify-me.jpg.png" },
   { title: 'Handede', artist: 'Wycee beats', file: "songs/handede.mp3", cover: "assets/handede.jpg.png" },
@@ -203,14 +252,135 @@
 
     search.addEventListener("input", e => render(e.target.value));
     document.getElementById("year").textContent = new Date().getFullYear();
-    render();
+    render();/* ===== NEW FREE BEATS ===== */
+
+function renderNewBeats() {
+  const newList = document.getElementById("new-song-list");
+
+  newList.innerHTML = "";
+
+  newBeats.forEach((song, index) => {
+    const card = document.createElement("article");
+    card.className = "song-card";
+
+    card.innerHTML = `
+      <div class="number">
+        ${String(index + 1).padStart(2, "0")}
+      </div>
+
+      <img src="${song.cover}" alt="${song.title} cover">
+
+      <div class="song-info">
+        <h3>${song.title}</h3>
+        <p>${song.artist}</p>
+      </div>
+
+      <div class="actions">
+        <div class="play-area">
+          <button class="play-btn" type="button">▶</button>
+          <span class="play-count">Loading plays...</span>
+        </div>
+
+        <button class="download-btn" type="button">
+          Download <span class="download-count">Loading...</span>
+        </button>
+      </div>
+    `;
+
+    const play = card.querySelector(".play-btn");
+    const playCountLabel = card.querySelector(".play-count");
+    const download = card.querySelector(".download-btn");
+    const downloadLabel = card.querySelector(".download-count");
+
+    const songKey = song.file
+      .replace("songs/", "")
+      .replace(".mp3", "");
+
+    let registered = false;
+
+    getCount("plays", songKey).then(count => {
+      playCountLabel.textContent =
+        `${count} ${count === 1 ? "play" : "plays"}`;
+    });
+
+    getCount("download", songKey).then(count => {
+      downloadLabel.textContent =
+        `${count} ${count === 1 ? "download" : "downloads"}`;
+    });
+
+    play.addEventListener("click", () => {
+
+      if (currentAudio && currentButton === play) {
+        if (currentAudio.paused) {
+          currentAudio.play();
+          play.textContent = "Ⅱ";
+        } else {
+          currentAudio.pause();
+          play.textContent = "▶";
+        }
+        return;
+      }
+
+      if (currentAudio) currentAudio.pause();
+      if (currentButton) currentButton.textContent = "▶";
+
+      currentAudio = new Audio(song.file);
+      currentButton = play;
+
+      currentAudio.play().then(async () => {
+        play.textContent = "Ⅱ";
+
+        if (!registered) {
+          registered = true;
+
+          const count = await registerCount("plays", songKey);
+
+          if (count !== null) {
+            playCountLabel.textContent =
+              `${count} ${count === 1 ? "play" : "plays"}`;
+          }
+        }
+
+      }).catch(() => {
+        alert("The song could not be played. Please try again.");
+      });
+
+      currentAudio.addEventListener("ended", () => {
+        play.textContent = "▶";
+      });
+    });
+
+    download.addEventListener("click", async () => {
+      download.disabled = true;
+
+      const count = await registerCount("download", songKey);
+
+      if (count !== null) {
+        downloadLabel.textContent =
+          `${count} ${count === 1 ? "download" : "downloads"}`;
+      }
+
+      const link = document.createElement("a");
+      link.href = song.file;
+      link.download = "";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      download.disabled = false;
+    });
+
+    newList.appendChild(card);
+  });
+}
+
+renderNewBeats();
   
 /* ===== TOP BEATS ===== */
 
 async function loadTopBeats() {
   const results = await Promise.all(
-    songs.map(async (song) => {
-
+    [...songs, ...newBeats].map(async (song) => {
       // Match the identifiers used by both backend functions
       const songKey = song.file
         .replace("songs/", "")
@@ -332,7 +502,7 @@ premiumSection.innerHTML = `
   <div class="premium-beats-list"></div>
 `;
 
-const musicSectionPremium = document.getElementById("music");
+const musicSectionPremium = document.getElementById("new-free-beats");
 
 if (musicSectionPremium) {
   musicSectionPremium.insertAdjacentElement("afterend", premiumSection);
