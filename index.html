@@ -11,10 +11,7 @@
   <header class="site-header">
     <div class="brand">
       <div class="brand-mark">WB</div>
-      <div>
-        <strong>Wycee Beats</strong>
-        <span>Free Afrobeat Downloads</span>
-      </div>
+      <div><strong>Wycee Beats</strong><span>Free Afrobeat Downloads</span></div>
     </div>
     <nav>
       <a href="#music">Music</a>
@@ -37,20 +34,20 @@
       </div>
     </section>
 
+    <!-- Top Beats is inserted here by JavaScript, before the playlist. -->
+
     <section id="music" class="music-section">
       <div class="section-heading">
         <div>
-        <p class="eyebrow">WYCEE FREE BEATS</p>
-<h2>Download Free Beats — Extended Playlist</h2>
+          <p class="eyebrow">WYCEE FREE BEATS</p>
+          <h2>Download Free Beats — Extended Playlist</h2>
         </div>
         <input id="search" type="search" placeholder="Search a song..." aria-label="Search songs">
       </div>
-
       <div id="song-list" class="song-list"></div>
       <p id="empty" class="empty" hidden>No songs found.</p>
-      </section>
+    </section>
 
-    <!-- NEW FREE BEATS -->
     <section id="new-free-beats" class="music-section">
       <div class="section-heading">
         <div>
@@ -58,9 +55,10 @@
           <h2>🎧 New Free Beats</h2>
         </div>
       </div>
-
       <div id="new-song-list" class="song-list"></div>
     </section>
+
+    <!-- Premium Beats is inserted immediately after New Free Beats. -->
 
     <section id="about" class="about">
       <div>
@@ -86,98 +84,36 @@
   </footer>
 
   <script>
-    
-const songs = [
-  { title: 'This is Love', artist: 'Wycee beats & Jay T', file: "songs/this-is-love.mp3", cover: "assets/this-is-love.jpg.png" },
-  { title: 'Edify Me', artist: 'Wycee & Snooky beats', file: "songs/edify-me.mp3", cover: "assets/edify-me.jpg.png" },
-  { title: 'Handede', artist: 'Wycee beats', file: "songs/handede.mp3", cover: "assets/handede.jpg.png" },
-  { title: 'Black handsome', artist: 'Wycee beats', file: "songs/black-handsome.mp3", cover: "assets/black-handsome.jpg.jpg" },
-  { title: 'Bad Slime', artist: 'Wycee beats', file: "songs/bad-slime.mp3", cover: "assets/bad-slime.jpg.jpg" },
-  { title: 'My Heart Is Not A Ball', artist: 'Wycee Beats', file: "songs/my-heart-is-not-a-ball.mp3", cover: "assets/my-heart-is-not-a-ball.jpg.jpeg" },
-  { title: 'Step Slow', artist: 'Wycee beats', file: "songs/step-slow.mp3", cover: "assets/step-slow.jpg.jpeg" },
-  { title: 'Slow Mo', artist: 'Wycee beats', file: "songs/slow-mo.mp3", cover: "assets/slow-mo.jpg.jpeg" },
-  { title: 'Timapanga Zimenezi', artist: 'Wycee beats', file: "songs/timapanga-zimenezi.mp3", cover: "assets/timapanga-zimenezi.jpg.jpeg" }
-];
-
-const newBeats = [
-  {
-    title: "Vocal Lover Afro Free",
-    artist: "Wycee Beats",
-    file: "songs/new-beats/Vocalover-afro-free.mp3",
-    cover: "songs/new-beats/covers/Vocalover-afro-free.png"
-  },
-  {
-    title: "Afrobeat Frost Water Free",
-    artist: "Wycee Beats",
-    file: "songs/new-beats/afrobea-frost-water-free.mp3",
-    cover: "songs/new-beats/covers/afrobea-frost-water-free.png"
-  },
-  {
-    title: "Afrobeats",
-    artist: "Wycee Beats",
-    file: "songs/new-beats/afrobeats.mp3",
-    cover: "songs/new-beats/covers/afrobeats.png"
-  },
-  {
-    title: "Afro Gospel Free",
-    artist: "Wycee Beats",
-    file: "songs/new-beats/afrogospel-free.mp3",
-    cover: "songs/new-beats/covers/afrogospel-free.jpg"
-  },
-  {
-    title: "Dancehall",
-    artist: "Wycee Beats",
-    file: "songs/new-beats/damcehall.mp3",
-    cover: "songs/new-beats/covers/damcehall.png"
-  },
-  {
-    title: "Sugar Baby Free",
-    artist: "Wycee Beats",
-    file: "songs/new-beats/sugar-baby-free.mp3",
-    cover: "songs/new-beats/covers/sugar-baby-free.png"
-  }
-];
-
-    title: "Afrobeats",
-    artist: "Wycee Beats",
-    file: "songs/new-beats/afrobeats.mp3",
-    cover: "songs/new-beats/covers/afrobeats.png"
-  },
-  {
-    title: "Afro Gospel Free",
-    artist: "Wycee Beats",
-    file: "songs/new-beats/afrogospel-free.mp3",
-    cover: "songs/new-beats/covers/afrogospel-free.jpg"
-  },
-  {
-    title: "Dancehall",
-    artist: "Wycee Beats",
-    file: "songs/new-beats/damcehall.mp3",
-    cover: "songs/new-beats/covers/damcehall.png"
-  },
-  {
-    title: "Sugar Baby Free",
-    artist: "Wycee Beats",
-    file: "songs/new-beats/sugar-baby-free.mp3",
-    cover: "songs/new-beats/covers/sugar-baby-free.png"
-  }
-];
-  { title: 'This is Love', artist: 'Wycee beats & Jay T', file: "songs/this-is-love.mp3", cover: "assets/this-is-love.jpg.png" },
-  { title: 'Edify Me', artist: 'Wycee & Snooky beats', file: "songs/edify-me.mp3", cover: "assets/edify-me.jpg.png" },
-  { title: 'Handede', artist: 'Wycee beats', file: "songs/handede.mp3", cover: "assets/handede.jpg.png" },
-  { title: 'Black handsome', artist: 'Wycee beats', file: "songs/black-handsome.mp3", cover: "assets/black-handsome.jpg.jpg" },
-  { title: 'Bad Slime', artist: 'Wycee beats', file: "songs/bad-slime.mp3", cover: "assets/bad-slime.jpg.jpg" },
-  { title: 'My Heart Is Not A Ball', artist: 'Wycee Beats', file: "songs/my-heart-is-not-a-ball.mp3", cover: "assets/my-heart-is-not-a-ball.jpg.jpeg" },
-  { title: 'Step Slow', artist: 'Wycee beats', file: "songs/step-slow.mp3", cover: "assets/step-slow.jpg.jpeg" },
-  { title: 'Slow Mo', artist: 'Wycee beats', file: "songs/slow-mo.mp3", cover: "assets/slow-mo.jpg.jpeg" },
-  { title: 'Timapanga Zimenezi', artist: 'Wycee beats', file: "songs/timapanga-zimenezi.mp3", cover: "assets/timapanga-zimenezi.jpg.jpeg" }
+    const songs = [
+      { title: "This is Love", artist: "Wycee beats & Jay T", file: "songs/this-is-love.mp3", cover: "assets/this-is-love.jpg.png" },
+      { title: "Edify Me", artist: "Wycee & Snooky beats", file: "songs/edify-me.mp3", cover: "assets/edify-me.jpg.png" },
+      { title: "Handede", artist: "Wycee beats", file: "songs/handede.mp3", cover: "assets/handede.jpg.png" },
+      { title: "Black handsome", artist: "Wycee beats", file: "songs/black-handsome.mp3", cover: "assets/black-handsome.jpg.jpg" },
+      { title: "Bad Slime", artist: "Wycee beats", file: "songs/bad-slime.mp3", cover: "assets/bad-slime.jpg.jpg" },
+      { title: "My Heart Is Not A Ball", artist: "Wycee Beats", file: "songs/my-heart-is-not-a-ball.mp3", cover: "assets/my-heart-is-not-a-ball.jpg.jpeg" },
+      { title: "Step Slow", artist: "Wycee beats", file: "songs/step-slow.mp3", cover: "assets/step-slow.jpg.jpeg" },
+      { title: "Slow Mo", artist: "Wycee beats", file: "songs/slow-mo.mp3", cover: "assets/slow-mo.jpg.jpeg" },
+      { title: "Timapanga Zimenezi", artist: "Wycee beats", file: "songs/timapanga-zimenezi.mp3", cover: "assets/timapanga-zimenezi.jpg.jpeg" }
     ];
 
-    const list = document.getElementById("song-list");
-    const search = document.getElementById("search");
-    const empty = document.getElementById("empty");
+    const newBeats = [
+      { title: "Vocal Lover Afro Free", artist: "Wycee Beats", file: "songs/new-beats/Vocalover-afro-free.mp3", cover: "songs/new-beats/covers/Vocalover-afro-free.png" },
+      { title: "Afrobeat Frost Water Free", artist: "Wycee Beats", file: "songs/new-beats/afrobea-frost-water-free.mp3", cover: "songs/new-beats/covers/afrobea-frost-water-free.png" },
+      { title: "Afrobeats", artist: "Wycee Beats", file: "songs/new-beats/afrobeats.mp3", cover: "songs/new-beats/covers/afrobeats.png" },
+      { title: "Afro Gospel Free", artist: "Wycee Beats", file: "songs/new-beats/afrogospel-free.mp3", cover: "songs/new-beats/covers/afrogospel-free.jpg" },
+      { title: "Dancehall", artist: "Wycee Beats", file: "songs/new-beats/damcehall.mp3", cover: "songs/new-beats/covers/damcehall.png" },
+      { title: "Sugar Baby Free", artist: "Wycee Beats", file: "songs/new-beats/sugar-baby-free.mp3", cover: "songs/new-beats/covers/sugar-baby-free.png" }
+    ];
+
+    const songList = document.getElementById("song-list");
+    const searchInput = document.getElementById("search");
+    const emptyMessage = document.getElementById("empty");
     let currentAudio = null;
     let currentButton = null;
+
+    function songKey(file) {
+      return file.replace(/^songs\//, "").replace(/\.mp3$/i, "");
+    }
 
     async function getCount(type, song) {
       try {
@@ -185,7 +121,9 @@ const newBeats = [
         if (!response.ok) return 0;
         const data = await response.json();
         return Number(data.count) || 0;
-      } catch (_) { return 0; }
+      } catch (error) {
+        return 0;
+      }
     }
 
     async function registerCount(type, song) {
@@ -194,577 +132,294 @@ const newBeats = [
         if (!response.ok) return null;
         const data = await response.json();
         return Number(data.count) || 0;
-      } catch (_) { return null; }
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function attachAudioControls(card, song) {
+      const play = card.querySelector(".play-btn");
+      const playCountLabel = card.querySelector(".play-count");
+      const download = card.querySelector(".download-btn");
+      const downloadCountLabel = card.querySelector(".download-count");
+      const key = songKey(song.file);
+      let playRegistered = false;
+
+      getCount("plays", key).then(count => {
+        playCountLabel.textContent = `${count} ${count === 1 ? "play" : "plays"}`;
+      });
+      getCount("download", key).then(count => {
+        downloadCountLabel.textContent = `${count} ${count === 1 ? "download" : "downloads"}`;
+      });
+
+      play.addEventListener("click", () => {
+        if (currentAudio && currentButton === play) {
+          if (currentAudio.paused) {
+            currentAudio.play().then(() => { play.textContent = "Ⅱ"; }).catch(() => {});
+          } else {
+            currentAudio.pause();
+            play.textContent = "▶";
+          }
+          return;
+        }
+
+        if (currentAudio) currentAudio.pause();
+        if (currentButton) currentButton.textContent = "▶";
+
+        currentAudio = new Audio(song.file);
+        currentButton = play;
+        currentAudio.play().then(async () => {
+          play.textContent = "Ⅱ";
+          if (!playRegistered) {
+            playRegistered = true;
+            const count = await registerCount("plays", key);
+            if (count !== null) playCountLabel.textContent = `${count} ${count === 1 ? "play" : "plays"}`;
+          }
+        }).catch(() => {
+          alert("The song could not be played. Please try again.");
+        });
+        currentAudio.addEventListener("ended", () => { play.textContent = "▶"; });
+      });
+
+      download.addEventListener("click", async () => {
+        download.disabled = true;
+        const count = await registerCount("download", key);
+        if (count !== null) {
+          downloadCountLabel.textContent = `${count} ${count === 1 ? "download" : "downloads"}`;
+        }
+        const link = document.createElement("a");
+        link.href = song.file;
+        link.download = "";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        download.disabled = false;
+      });
+    }
+
+    function makeSongCard(song, index) {
+      const card = document.createElement("article");
+      card.className = "song-card";
+      card.innerHTML = `
+        <div class="number">${String(index + 1).padStart(2, "0")}</div>
+        <img src="${song.cover}" alt="${song.title} cover">
+        <div class="song-info"><h3>${song.title}</h3><p>${song.artist}</p></div>
+        <div class="actions">
+          <div class="play-area"><button class="play-btn" type="button">▶</button><span class="play-count">Loading plays...</span></div>
+          <button class="download-btn" type="button">Download <span class="download-count">Loading...</span></button>
+        </div>`;
+      attachAudioControls(card, song);
+      return card;
     }
 
     function render(filter = "") {
-      list.innerHTML = "";
-      const q = filter.toLowerCase().trim();
-      const matches = songs.filter(s =>
-        s.title.toLowerCase().includes(q) || s.artist.toLowerCase().includes(q)
+      songList.innerHTML = "";
+      const query = filter.toLowerCase().trim();
+      const matches = songs.filter(song =>
+        song.title.toLowerCase().includes(query) || song.artist.toLowerCase().includes(query)
       );
-
-      empty.hidden = matches.length !== 0;
-
-      matches.forEach((song, index) => {
-        const card = document.createElement("article");
-        card.className = "song-card";
-        card.innerHTML = `
-          <div class="number">${String(index + 1).padStart(2, "0")}</div>
-          <img src="${song.cover}" alt="${song.title} cover">
-          <div class="song-info">
-            <h3>${song.title}</h3>
-            <p>${song.artist}</p>
-          </div>
-          <div class="actions">
-            <div class="play-area">
-              <button class="play-btn" type="button">▶</button>
-              <span class="play-count">Loading plays...</span>
-            </div>
-            <button class="download-btn" type="button">Download <span class="download-count">Loading...</span></button>
-          </div>
-        `;
-
-        const play = card.querySelector(".play-btn");
-        const playCountLabel = card.querySelector(".play-count");
-        const songKey = song.file.replace("songs/", "").replace(".mp3", "");
-        let playRegisteredForThisAudio = false;
-        play.addEventListener("click", () => {
-          if (currentAudio && currentButton === play) {
-            if (currentAudio.paused) {
-              currentAudio.play();
-              play.textContent = "Ⅱ";
-            } else {
-              currentAudio.pause();
-              play.textContent = "▶";
-            }
-            return;
-          }
-
-          if (currentAudio) currentAudio.pause();
-          if (currentButton) currentButton.textContent = "▶";
-
-          currentAudio = new Audio(song.file);
-          currentButton = play;
-          currentAudio.play().then(async () => {
-            play.textContent = "Ⅱ";
-            if (!playRegisteredForThisAudio) {
-              playRegisteredForThisAudio = true;
-              const count = await registerCount("plays", songKey);
-              if (count !== null) playCountLabel.textContent = `${count} ${count === 1 ? "play" : "plays"}`;
-            }
-          }).catch(() => {
-            alert("The song could not be played. Please try again.");
-          });
-          currentAudio.addEventListener("ended", () => play.textContent = "▶");
-        });
-
-        const download = card.querySelector(".download-btn");
-        const countLabel = card.querySelector(".download-count");
-
-        getCount("download", songKey).then(count => {
-          countLabel.textContent = `${count} ${count === 1 ? "download" : "downloads"}`;
-        });
-        getCount("plays", songKey).then(count => {
-          playCountLabel.textContent = `${count} ${count === 1 ? "play" : "plays"}`;
-        });
-
-        download.addEventListener("click", async () => {
-          download.disabled = true;
-          const count = await registerCount("download", songKey);
-          if (count !== null) {
-            countLabel.textContent = `${count} ${count === 1 ? "download" : "downloads"}`;
-          }
-          const link = document.createElement("a");
-          link.href = song.file;
-          link.download = "";
-          document.body.appendChild(link);
-          link.click();
-          link.remove();
-          download.disabled = false;
-        });
-
-        list.appendChild(card);
-      });
+      emptyMessage.hidden = matches.length !== 0;
+      matches.forEach((song, index) => songList.appendChild(makeSongCard(song, index)));
     }
 
-    search.addEventListener("input", e => render(e.target.value));
+    function renderNewBeats() {
+      const newList = document.getElementById("new-song-list");
+      newList.innerHTML = "";
+      newBeats.forEach((song, index) => newList.appendChild(makeSongCard(song, index)));
+    }
+
+    searchInput.addEventListener("input", event => render(event.target.value));
     document.getElementById("year").textContent = new Date().getFullYear();
-    render();/* ===== NEW FREE BEATS ===== */
+    render();
+    renderNewBeats();
 
-function renderNewBeats() {
-  const newList = document.getElementById("new-song-list");
+    async function loadTopBeats() {
+      const results = await Promise.all([...songs, ...newBeats].map(async song => {
+        const key = songKey(song.file);
+        const [plays, downloads] = await Promise.all([
+          getCount("plays", key),
+          getCount("download", key)
+        ]);
+        return { song, plays: Number(plays) || 0, downloads: Number(downloads) || 0 };
+      }));
 
-  newList.innerHTML = "";
+      results.sort((a, b) => (b.plays + b.downloads) - (a.plays + a.downloads));
+      const top = results.slice(0, 5);
+      const section = document.createElement("section");
+      section.id = "top-beats";
+      section.innerHTML = `
+        <h2>🔥 Top Beats</h2>
+        <p class="top-subtitle">The most played and downloaded beats</p>
+        <div class="top-beats-list">
+          ${top.map((item, index) => `
+            <div class="top-beat">
+              <div class="top-number">${index + 1}</div>
+              <img src="${item.song.cover}" alt="${item.song.title}">
+              <div class="top-info">
+                <h3>${item.song.title}</h3>
+                <p>${item.song.artist}</p>
+                <span>▶ ${item.plays} plays</span>
+                <span>⬇ ${item.downloads} downloads</span>
+              </div>
+            </div>`).join("")}
+        </div>`;
+      const oldSection = document.getElementById("top-beats");
+      if (oldSection) oldSection.remove();
+      const musicSection = document.getElementById("music");
+      if (musicSection) musicSection.parentNode.insertBefore(section, musicSection);
+    }
 
-  newBeats.forEach((song, index) => {
-    const card = document.createElement("article");
-    card.className = "song-card";
+    const contactEmail = document.createElement("div");
+    contactEmail.innerHTML = `<p>📧 Email: <a href="mailto:chiwambowycee@gmail.com">chiwambowycee@gmail.com</a></p>`;
+    const contactSection = document.getElementById("contact");
+    if (contactSection) contactSection.appendChild(contactEmail);
+    loadTopBeats();
 
-    card.innerHTML = `
-      <div class="number">
-        ${String(index + 1).padStart(2, "0")}
+    /* ===== PREMIUM BEATS ===== */
+    const premiumBeats = [
+      {
+        title: "Seized — Dancehall Beat",
+        genre: "Dancehall",
+        price: "MK 15,000",
+        cover: "assets/premium/seized-dancehall-beat.jpg.jpeg",
+        preview: "assets/premium/Seized-Dancehall-preview.mp3.mp3"
+      }
+    ];
+
+    const premiumSection = document.createElement("section");
+    premiumSection.id = "premium-beats";
+    premiumSection.innerHTML = `
+      <h2>🎹 Premium Beats — MK 15,000 each</h2>
+      <p>Listen to a short preview before buying.</p>
+      <div class="premium-genres">
+        <button onclick="filterPremiumGenre('All')">🎵 All</button>
+        <button onclick="filterPremiumGenre('Amapiano')">🎵 Amapiano</button>
+        <button onclick="filterPremiumGenre('Afrobeat')">🎤 Afrobeat</button>
+        <button onclick="filterPremiumGenre('R&B')">❤️ R&B</button>
+        <button onclick="filterPremiumGenre('Gospel')">✝️ Gospel</button>
+        <button onclick="filterPremiumGenre('Hip-Hop')">🔥 Hip-Hop</button>
+        <button onclick="filterPremiumGenre('Afro-Pop')">🎸 Afro-Pop</button>
+        <button onclick="filterPremiumGenre('Dancehall')">🌴 Dancehall</button>
+        <button onclick="filterPremiumGenre('Slow / Emotional')">🌙 Slow / Emotional</button>
+        <button onclick="filterPremiumGenre('Other Genres')">🎶 Other Genres</button>
       </div>
+      <div class="premium-beats-list"></div>`;
+    const newFreeSection = document.getElementById("new-free-beats");
+    if (newFreeSection) newFreeSection.insertAdjacentElement("afterend", premiumSection);
+    else document.body.appendChild(premiumSection);
 
-      <img src="${song.cover}" alt="${song.title} cover">
-
-      <div class="song-info">
-        <h3>${song.title}</h3>
-        <p>${song.artist}</p>
-      </div>
-
-      <div class="actions">
-        <div class="play-area">
-          <button class="play-btn" type="button">▶</button>
-          <span class="play-count">Loading plays...</span>
-        </div>
-
-        <button class="download-btn" type="button">
-          Download <span class="download-count">Loading...</span>
-        </button>
-      </div>
-    `;
-
-    const play = card.querySelector(".play-btn");
-    const playCountLabel = card.querySelector(".play-count");
-    const download = card.querySelector(".download-btn");
-    const downloadLabel = card.querySelector(".download-count");
-
-    const songKey = song.file
-      .replace("songs/", "")
-      .replace(".mp3", "");
-
-    let registered = false;
-
-    getCount("plays", songKey).then(count => {
-      playCountLabel.textContent =
-        `${count} ${count === 1 ? "play" : "plays"}`;
-    });
-
-    getCount("download", songKey).then(count => {
-      downloadLabel.textContent =
-        `${count} ${count === 1 ? "download" : "downloads"}`;
-    });
-
-    play.addEventListener("click", () => {
-
-      if (currentAudio && currentButton === play) {
-        if (currentAudio.paused) {
-          currentAudio.play();
-          play.textContent = "Ⅱ";
-        } else {
-          currentAudio.pause();
-          play.textContent = "▶";
-        }
+    function displayPremiumBeats(beats) {
+      const list = premiumSection.querySelector(".premium-beats-list");
+      if (beats.length === 0) {
+        list.innerHTML = `<div class="no-premium-beats"><h3>🎵 No beats available in this genre yet</h3><p>New premium beats are coming soon.</p></div>`;
         return;
       }
-
-      if (currentAudio) currentAudio.pause();
-      if (currentButton) currentButton.textContent = "▶";
-
-      currentAudio = new Audio(song.file);
-      currentButton = play;
-
-      currentAudio.play().then(async () => {
-        play.textContent = "Ⅱ";
-
-        if (!registered) {
-          registered = true;
-
-          const count = await registerCount("plays", songKey);
-
-          if (count !== null) {
-            playCountLabel.textContent =
-              `${count} ${count === 1 ? "play" : "plays"}`;
-          }
-        }
-
-      }).catch(() => {
-        alert("The song could not be played. Please try again.");
-      });
-
-      currentAudio.addEventListener("ended", () => {
-        play.textContent = "▶";
-      });
-    });
-
-    download.addEventListener("click", async () => {
-      download.disabled = true;
-
-      const count = await registerCount("download", songKey);
-
-      if (count !== null) {
-        downloadLabel.textContent =
-          `${count} ${count === 1 ? "download" : "downloads"}`;
-      }
-
-      const link = document.createElement("a");
-      link.href = song.file;
-      link.download = "";
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-
-      download.disabled = false;
-    });
-
-    newList.appendChild(card);
-  });
-}
-
-renderNewBeats();
-  
-/* ===== TOP BEATS ===== */
-
-async function loadTopBeats() {
-  const results = await Promise.all(
-    [...songs, ...newBeats].map(async (song) => {
-      // Match the identifiers used by both backend functions
-      const songKey = song.file
-        .replace("songs/", "")
-        .replace(".mp3", "");
-
-      const [plays, downloads] = await Promise.all([
-        getCount("plays", songKey),
-        getCount("download", songKey)
-      ]);
-
-      return {
-        song,
-        plays: Number(plays) || 0,
-        downloads: Number(downloads) || 0
-      };
-    })
-  );
-
-  // Rank by combined plays and downloads
-  results.sort((a, b) =>
-    (b.plays + b.downloads) - (a.plays + a.downloads)
-  );
-
-  const top = results.slice(0, 5);
-
-  const section = document.createElement("section");
-  section.id = "top-beats";
-
-  section.innerHTML = `
-    <h2>🔥 Top Beats</h2>
-    <p class="top-subtitle">
-      The most played and downloaded beats
-    </p>
-
-    <div class="top-beats-list">
-      ${top.map((item, index) => `
-        <div class="top-beat">
-          <div class="top-number">${index + 1}</div>
-
-          <img src="${item.song.cover}"
-               alt="${item.song.title}">
-
-          <div class="top-info">
-            <h3>${item.song.title}</h3>
-            <p>${item.song.artist}</p>
-
-            <span>▶ ${item.plays} plays</span>
-            <span>⬇ ${item.downloads} downloads</span>
+      list.innerHTML = beats.map(beat => `
+        <div class="premium-beat-card">
+          <img src="${beat.cover}" alt="${beat.title}">
+          <div class="premium-beat-info">
+            <h3>${beat.title}</h3>
+            <p>🎵 Genre: ${beat.genre}</p>
+            <h4>💰 ${beat.price}</h4>
+            <button class="preview-btn" onclick="playPremiumPreview('${beat.preview}')">▶ Preview</button>
+            <button class="buy-btn" onclick="openBuyForm('${beat.title}')">💰 Buy Beat</button>
           </div>
-        </div>
-      `).join("")}
-    </div>
-  `;
-
-  const oldSection = document.getElementById("top-beats");
-  if (oldSection) oldSection.remove();
-
-  const musicSection = document.getElementById("music");
-
-  if (musicSection) {
-    musicSection.parentNode.insertBefore(
-      section,
-      musicSection
-    );
-  }
-}
-
-
-/* ===== EMAIL ===== */
-const contactEmail = document.createElement("div");
-contactEmail.innerHTML = `
-  <p>📧 Email:
-    <a href="mailto:chiwambowycee@gmail.com">
-      chiwambowycee@gmail.com
-    </a>
-  </p>
-`;
-
-const contactSection = document.getElementById("contact");
-if (contactSection) {
-  contactSection.appendChild(contactEmail);
-}
-
-loadTopBeats();
-    
-    
-/* ===== PREMIUM BEATS ===== */
-
-const premiumBeats = [
-  {
-    title: "Seized — Dancehall Beat",
-    genre: "Dancehall",
-    price: "MK 15,000",
-    cover: "assets/premium/seized-dancehall-beat.jpg.jpeg",
-    preview: "assets/premium/Seized-Dancehall-preview.mp3.mp3"
-  }
-];
-
-const premiumSection = document.createElement("section");
-premiumSection.id = "premium-beats";
-
-premiumSection.innerHTML = `
-  <h2>🎹 Premium Beats — MK 15,000 each</h2>
-  <p>Listen to a short preview before buying.</p>
-
-  <div class="premium-genres">
-    <button onclick="filterPremiumGenre('All')">🎵 All</button>
-    <button onclick="filterPremiumGenre('Amapiano')">🎵 Amapiano</button>
-    <button onclick="filterPremiumGenre('Afrobeat')">🎤 Afrobeat</button>
-    <button onclick="filterPremiumGenre('R&B')">❤️ R&B</button>
-    <button onclick="filterPremiumGenre('Gospel')">✝️ Gospel</button>
-    <button onclick="filterPremiumGenre('Hip-Hop')">🔥 Hip-Hop</button>
-    <button onclick="filterPremiumGenre('Afro-Pop')">🎸 Afro-Pop</button>
-    <button onclick="filterPremiumGenre('Dancehall')">🌴 Dancehall</button>
-    <button onclick="filterPremiumGenre('Slow / Emotional')">🌙 Slow / Emotional</button>
-    <button onclick="filterPremiumGenre('Other Genres')">🎶 Other Genres</button>
-  </div>
-
-  <div class="premium-beats-list"></div>
-`;
-
-const musicSectionPremium = document.getElementById("new-free-beats");
-
-if (musicSectionPremium) {
-  musicSectionPremium.insertAdjacentElement("afterend", premiumSection);
-} else {
-  document.body.appendChild(premiumSection);
-}
-
-function displayPremiumBeats(beats) {
-  const list = premiumSection.querySelector(".premium-beats-list");
-
-  if (beats.length === 0) {
-    list.innerHTML = `
-      <div class="no-premium-beats">
-        <h3>🎵 No beats available in this genre yet</h3>
-        <p>New premium beats are coming soon.</p>
-      </div>
-    `;
-    return;
-  }
-
-  list.innerHTML = beats.map((beat) => `
-    <div class="premium-beat-card">
-
-      <img src="${beat.cover}" alt="${beat.title}">
-
-      <div class="premium-beat-info">
-
-        <h3>${beat.title}</h3>
-
-        <p>🎵 Genre: ${beat.genre}</p>
-
-        <h4>💰 ${beat.price}</h4>
-
-        <button
-          class="preview-btn"
-          onclick="playPremiumPreview('${beat.preview}')">
-          ▶️ Preview
-        </button>
-
-        <button
-          class="buy-btn"
-          onclick="openBuyForm('${beat.title}')">
-          💰 Buy Beat
-        </button>
-
-      </div>
-
-    </div>
-  `).join("");
-}
-
-function filterPremiumGenre(genre) {
-  if (genre === "All") {
-    displayPremiumBeats(premiumBeats);
-    return;
-  }
-
-  const filteredBeats = premiumBeats.filter(
-    beat => beat.genre === genre
-  );
-
-  displayPremiumBeats(filteredBeats);
-}
-
-let premiumAudio = null;
-
-function playPremiumPreview(previewFile) {
-  if (premiumAudio) {
-    premiumAudio.pause();
-    premiumAudio.currentTime = 0;
-  }
-
-  premiumAudio = new Audio(previewFile);
-  premiumAudio.play().catch(() => {
-    alert("The preview could not be played.");
-  });
-}
-
-/* Show all premium beats when page loads */
-displayPremiumBeats(premiumBeats);
-
-
-/* ===== BUY BEAT FORM ===== */
-
-function openBuyForm(beatTitle) {
-  const formSection = document.createElement("div");
-
-  formSection.id = "buy-form-overlay";
-
-  formSection.innerHTML = `
-    <div class="buy-form">
-
-      <button
-        class="close-buy-form"
-        onclick="closeBuyForm()">
-        ✕
-      </button>
-
-      <h2>🛒 Buy Beat</h2>
-
-      <p><strong>Beat:</strong> ${beatTitle}</p>
-      <p><strong>Price:</strong> MK 15,000</p>
-
-      <form name="premium-beat-orders"
-      method="POST"
-      data-netlify="true"
-      onsubmit="submitBeatOrder(event, '${beatTitle}')">
-
-  <input type="hidden" name="form-name" value="premium-beat-orders">
-
-  <label>Name</label>
-  <input
-    type="text"
-    name="name"
-    placeholder="Your name"
-    required
-  >
-
-  <label>Phone Number</label>
-  <input
-    type="tel"
-    name="phone"
-    placeholder="Your phone number"
-    required
-  >
-
-  <label>Payment Method</label>
-  <select name="payment" required>
-    <option value="">Select payment method</option>
-    <option value="Airtel Money">Airtel Money</option>
-    <option value="TNM Mpamba">TNM Mpamba</option>
-    <option value="Bank">Bank</option>
-  </select>
-
-  <label>Email (optional)</label>
-  <input
-    type="email"
-    name="email"
-    placeholder="Your email"
-  >
-
-  <label>Change / Customisation Request (optional)</label>
-  <textarea
-    name="customisation"
-    placeholder="Tell me if you need any changes to the beat..."
-    rows="4"
-  ></textarea>
-
-  <button type="submit">
-    Submit Order
-  </button>
-
-</form>
-
-    </div>
-  `;
-
-  document.body.appendChild(formSection);
-}
-
-function closeBuyForm() {
-  const form = document.getElementById("buy-form-overlay");
-
-  if (form) {
-    form.remove();
-  }
-}
-
-async function submitBeatOrder(event, beatTitle) {
-  event.preventDefault();
-
-  const form = event.target;
-  const formData = new FormData(form);
-
-  formData.set("form-name", "premium-beat-orders");
-  formData.set("beat", beatTitle);
-
-  try {
-    const response = await fetch("/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: new URLSearchParams(formData).toString()
-    });
-
-    if (!response.ok) {
-      throw new Error("Order submission failed");
+        </div>`).join("");
     }
 
-    alert(
-      "Thank you! Your order for " +
-      beatTitle +
-      " has been received. We will contact you with payment instructions."
-    );
+    window.filterPremiumGenre = function(genre) {
+      if (genre === "All") {
+        displayPremiumBeats(premiumBeats);
+        return;
+      }
+      displayPremiumBeats(premiumBeats.filter(beat => beat.genre === genre));
+    };
 
-    closeBuyForm();
+    let premiumAudio = null;
+    window.playPremiumPreview = function(previewFile) {
+      if (premiumAudio) {
+        premiumAudio.pause();
+        premiumAudio.currentTime = 0;
+      }
+      premiumAudio = new Audio(previewFile);
+      premiumAudio.play().catch(() => alert("The preview could not be played."));
+    };
 
-  } catch (error) {
-    alert(
-      "Sorry, your order could not be submitted. Please try again."
-    );
+    displayPremiumBeats(premiumBeats);
 
-    console.error(error);
-  }
-}
-</script>
+    /* ===== BUY BEAT FORM ===== */
+    window.openBuyForm = function(beatTitle) {
+      const existing = document.getElementById("buy-form-overlay");
+      if (existing) existing.remove();
 
+      const formSection = document.createElement("div");
+      formSection.id = "buy-form-overlay";
+      formSection.innerHTML = `
+        <div class="buy-form">
+          <button class="close-buy-form" type="button" onclick="closeBuyForm()">✕</button>
+          <h2>🛒 Buy Beat</h2>
+          <p><strong>Beat:</strong> ${beatTitle}</p>
+          <p><strong>Price:</strong> MK 15,000</p>
+          <form name="premium-beat-orders" method="POST" data-netlify="true" onsubmit="submitBeatOrder(event, '${beatTitle}')">
+            <input type="hidden" name="form-name" value="premium-beat-orders">
+            <label>Name</label>
+            <input type="text" name="name" placeholder="Your name" required>
+            <label>Phone Number</label>
+            <input type="tel" name="phone" placeholder="Your phone number" required>
+            <label>Payment Method</label>
+            <select name="payment" required>
+              <option value="">Select payment method</option>
+              <option value="Airtel Money">Airtel Money</option>
+              <option value="TNM Mpamba">TNM Mpamba</option>
+              <option value="Bank">Bank</option>
+            </select>
+            <label>Email (optional)</label>
+            <input type="email" name="email" placeholder="Your email">
+            <label>Change / Customisation Request (optional)</label>
+            <textarea name="customisation" placeholder="Tell me if you need any changes to the beat..." rows="4"></textarea>
+            <button type="submit">Submit Order</button>
+          </form>
+        </div>`;
+      document.body.appendChild(formSection);
+    };
 
-<!-- Hidden Netlify form for premium beat orders -->
-<form
-  name="premium-beat-orders"
-  method="POST"
-  data-netlify="true"
-  hidden
->
-  <input type="hidden" name="form-name" value="premium-beat-orders">
+    window.closeBuyForm = function() {
+      const form = document.getElementById("buy-form-overlay");
+      if (form) form.remove();
+    };
 
-  <input type="text" name="name">
-  <input type="tel" name="phone">
-  <input type="text" name="beat">
-  <input type="text" name="payment">
-  <input type="email" name="email">
-  <textarea name="customisation"></textarea>
-</form>
+    window.submitBeatOrder = async function(event, beatTitle) {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+      formData.set("form-name", "premium-beat-orders");
+      formData.set("beat", beatTitle);
+
+      try {
+        const response = await fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(formData).toString()
+        });
+        if (!response.ok) throw new Error("Order submission failed");
+        alert("Thank you! Your order for " + beatTitle + " has been received. We will contact you with payment instructions.");
+        closeBuyForm();
+      } catch (error) {
+        alert("Sorry, your order could not be submitted. Please try again.");
+        console.error(error);
+      }
+    };
+  </script>
+
+  <!-- Hidden Netlify form for premium beat orders -->
+  <form name="premium-beat-orders" method="POST" data-netlify="true" hidden>
+    <input type="hidden" name="form-name" value="premium-beat-orders">
+    <input type="text" name="name">
+    <input type="tel" name="phone">
+    <input type="text" name="beat">
+    <input type="text" name="payment">
+    <input type="email" name="email">
+    <textarea name="customisation"></textarea>
+  </form>
 </body>
 </html>
