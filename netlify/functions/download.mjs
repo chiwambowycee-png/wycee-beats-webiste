@@ -1,6 +1,7 @@
 import { getStore } from "@netlify/blobs";
 
 const allowedSongs = new Set([
+  // Original beats
   "this-is-love",
   "edify-me",
   "handede",
@@ -10,6 +11,14 @@ const allowedSongs = new Set([
   "step-slow",
   "slow-mo",
   "timapanga-zimenezi",
+
+  // New free beats
+  "new-beats/Vocalover-afro-free",
+  "new-beats/afrobea-frost-water-free",
+  "new-beats/afrobeats",
+  "new-beats/afrogospel-free",
+  "new-beats/damcehall",
+  "new-beats/sugar-baby-free",
 ]);
 
 const keyFor = (song) => `downloads/${song}`;
