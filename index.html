@@ -275,77 +275,142 @@
     if (contactSection) contactSection.appendChild(contactEmail);
     loadTopBeats();
 
-    /* ===== PREMIUM BEATS ===== */
-    const premiumBeats = [
-      {
-        title: "Seized — Dancehall Beat",
-        genre: "Dancehall",
-        price: "MK 15,000",
-        cover: "assets/premium/seized-dancehall-beat.jpg.jpeg",
-        preview: "assets/premium/Seized-Dancehall-preview.mp3.mp3"
-      }
-    ];
+    
+/* ===== PREMIUM BEATS ===== */
 
-    const premiumSection = document.createElement("section");
-    premiumSection.id = "premium-beats";
-    premiumSection.innerHTML = `
-      <h2>🎹 Premium Beats — MK 15,000 each</h2>
-      <p>Listen to a short preview before buying.</p>
-      <div class="premium-genres">
-        <button onclick="filterPremiumGenre('All')">🎵 All</button>
-        <button onclick="filterPremiumGenre('Amapiano')">🎵 Amapiano</button>
-        <button onclick="filterPremiumGenre('Afrobeat')">🎤 Afrobeat</button>
-        <button onclick="filterPremiumGenre('R&B')">❤️ R&B</button>
-        <button onclick="filterPremiumGenre('Gospel')">✝️ Gospel</button>
-        <button onclick="filterPremiumGenre('Hip-Hop')">🔥 Hip-Hop</button>
-        <button onclick="filterPremiumGenre('Afro-Pop')">🎸 Afro-Pop</button>
-        <button onclick="filterPremiumGenre('Dancehall')">🌴 Dancehall</button>
-        <button onclick="filterPremiumGenre('Slow / Emotional')">🌙 Slow / Emotional</button>
-        <button onclick="filterPremiumGenre('Other Genres')">🎶 Other Genres</button>
+const premiumBeats = [
+  {
+    title: "Seized — Dancehall Beat",
+    genre: "Dancehall",
+    price: "MK 15,000",
+    cover: "assets/premium/seized-dancehall-beat.jpg.jpeg",
+    preview: "assets/premium/Seized-Dancehall-preview.mp3.mp3"
+  },
+  {
+    title: "Afrobeat by Wycee",
+    genre: "Afrobeat",
+    price: "MK 15,000",
+    cover: "assets/premium/afrobeat/Afrobeat-by-Wycee-cover.png",
+    preview: "assets/premium/afrobeat/Afrobeat-by-Wycee-preview.mp3"
+  },
+  {
+    title: "Aunt Rose Afrobeat",
+    genre: "Afrobeat",
+    price: "MK 15,000",
+    cover: "assets/premium/afrobeat/Aunt-Rose-afrobeat-cover.png",
+    preview: "assets/premium/afrobeat/Aunt-Rose-afrobeat-preview.mp3"
+  },
+  {
+    title: "Afrobeat Cycle",
+    genre: "Afrobeat",
+    price: "MK 15,000",
+    cover: "assets/premium/afrobeat/afrobeat-cycle-cover.png",
+    preview: "assets/premium/afrobeat/afrobeat-cycle-preview.mp3"
+  },
+  {
+    title: "Afrobeats",
+    genre: "Afrobeat",
+    price: "MK 15,000",
+    cover: "assets/premium/afrobeat/afrobeats-cover.png",
+    preview: "assets/premium/afrobeat/afrobeats-preview.mp3"
+  }
+];
+
+const premiumGenres = [
+  "Amapiano",
+  "Afrobeat",
+  "R&B",
+  "Gospel",
+  "Hip-Hop",
+  "Afro-Pop",
+  "Dancehall",
+  "Slow / Emotional",
+  "Other Genres"
+];
+
+const premiumSection = document.createElement("section");
+premiumSection.id = "premium-beats";
+
+premiumSection.innerHTML = `
+  <h2>🎹 Premium Beats — MK 15,000 each</h2>
+  <p>Choose your favourite genre and listen to a short preview before buying.</p>
+  <div class="premium-genres-container"></div>
+`;
+
+const newFreeSection = document.getElementById("new-free-beats");
+
+if (newFreeSection) {
+  newFreeSection.insertAdjacentElement("afterend", premiumSection);
+} else {
+  document.body.appendChild(premiumSection);
+}
+
+function displayPremiumGenres() {
+  const container = premiumSection.querySelector(
+    ".premium-genres-container"
+  );
+
+  container.innerHTML = "";
+
+  premiumGenres.forEach(genre => {
+    const beats = premiumBeats.filter(
+      beat => beat.genre === genre
+    );
+
+    const genreSection = document.createElement("div");
+    genreSection.className = "premium-genre-group";
+
+    genreSection.innerHTML = `
+      <h3>${genre}</h3>
+      <div class="premium-beats-list">
+        ${
+          beats.length
+            ? beats.map(beat => `
+              <div class="premium-beat-card">
+                <img src="${beat.cover}" alt="${beat.title}">
+                <div class="premium-beat-info">
+                  <h3>${beat.title}</h3>
+                  <p>🎵 Genre: ${beat.genre}</p>
+                  <h4>💰 ${beat.price}</h4>
+                  <button class="preview-btn"
+                    onclick="playPremiumPreview('${beat.preview}')">
+                    ▶ Preview
+                  </button>
+                  <button class="buy-btn"
+                    onclick="openBuyForm('${beat.title}')">
+                    💰 Buy Beat
+                  </button>
+                </div>
+              </div>
+            `).join("")
+            : `<p class="no-premium-beats">
+                New beats coming soon.
+              </p>`
+        }
       </div>
-      <div class="premium-beats-list"></div>`;
-    const newFreeSection = document.getElementById("new-free-beats");
-    if (newFreeSection) newFreeSection.insertAdjacentElement("afterend", premiumSection);
-    else document.body.appendChild(premiumSection);
+    `;
 
-    function displayPremiumBeats(beats) {
-      const list = premiumSection.querySelector(".premium-beats-list");
-      if (beats.length === 0) {
-        list.innerHTML = `<div class="no-premium-beats"><h3>🎵 No beats available in this genre yet</h3><p>New premium beats are coming soon.</p></div>`;
-        return;
-      }
-      list.innerHTML = beats.map(beat => `
-        <div class="premium-beat-card">
-          <img src="${beat.cover}" alt="${beat.title}">
-          <div class="premium-beat-info">
-            <h3>${beat.title}</h3>
-            <p>🎵 Genre: ${beat.genre}</p>
-            <h4>💰 ${beat.price}</h4>
-            <button class="preview-btn" onclick="playPremiumPreview('${beat.preview}')">▶ Preview</button>
-            <button class="buy-btn" onclick="openBuyForm('${beat.title}')">💰 Buy Beat</button>
-          </div>
-        </div>`).join("");
-    }
+    container.appendChild(genreSection);
+  });
+}
 
-    window.filterPremiumGenre = function(genre) {
-      if (genre === "All") {
-        displayPremiumBeats(premiumBeats);
-        return;
-      }
-      displayPremiumBeats(premiumBeats.filter(beat => beat.genre === genre));
-    };
+let premiumAudio = null;
 
-    let premiumAudio = null;
-    window.playPremiumPreview = function(previewFile) {
-      if (premiumAudio) {
-        premiumAudio.pause();
-        premiumAudio.currentTime = 0;
-      }
-      premiumAudio = new Audio(previewFile);
-      premiumAudio.play().catch(() => alert("The preview could not be played."));
-    };
+window.playPremiumPreview = function(previewFile) {
+  if (premiumAudio) {
+    premiumAudio.pause();
+    premiumAudio.currentTime = 0;
+  }
 
-    displayPremiumBeats(premiumBeats);
+  premiumAudio = new Audio(previewFile);
+
+  premiumAudio.play().catch(() => {
+    alert("The preview could not be played.");
+  });
+};
+
+displayPremiumGenres();
+
 
     /* ===== BUY BEAT FORM ===== */
     window.openBuyForm = function(beatTitle) {
